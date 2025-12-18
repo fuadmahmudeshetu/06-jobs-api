@@ -13,6 +13,7 @@ const jobsRouter = require('./routes/jobs')
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
+const authMiddleware = require('./middleware/authentication')
 
 app.use(express.json());
 // extra packages
@@ -22,7 +23,7 @@ const connectDB = require('./db/connect');
 
 // routes
 app.use('/api/v1/auth',authRouter);
-app.use('/api/v1/jobs',jobsRouter);
+app.use('/api/v1/jobs',authMiddleware,jobsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
