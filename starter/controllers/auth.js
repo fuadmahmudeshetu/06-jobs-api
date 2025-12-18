@@ -16,7 +16,7 @@ const login = async (req,res) =>{
         throw new BadRequestError("Please provide email and password");
     }
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({email}).select('+password')
     // compare password
 
     if (!user) {
